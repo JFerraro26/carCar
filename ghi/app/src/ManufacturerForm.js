@@ -4,7 +4,7 @@ function ManufacturerFormCreate(){
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = {};
-        data.name =name;
+        data.name = name;
         const manufacturerUrl = "http://localhost:8100/api/manufacturers/";
         const fetchConfig = {
             method: "post",

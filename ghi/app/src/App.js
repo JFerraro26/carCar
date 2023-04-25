@@ -30,6 +30,9 @@ function App() {
             <Route path='' element={<AutomobileList />} />
             <Route path='new' element={<AutomobileFormCreate />} />
           </Route>
+          <Route path="/technicians" element={<TechnicianList />} />
+          <Route path="/technicians/create" element={<CreateTechnician />} />
+          <Route path="/appointments/create" element={<CreateAppointment />} />
         </Routes>
       </div>
     </BrowserRouter>

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function AutomobileList() {
     const DeleteButtonClick = async (auto) => {
-        const confirm = window.confirm(`Are you sure you want to delete ${auto}?`);
+        const confirm = window.confirm(`Are you sure you want to delete ${auto.model.name}?`);
         if (confirm) {
             const vin = auto.vin
             const manUrl = `http://localhost:8100/api/automobiles/${vin}`;

@@ -34,7 +34,10 @@ function App() {
           <Route path="/technicians" element={<TechnicianList />} />
           <Route path="/technicians/create" element={<CreateTechnician />} />
           <Route path="/appointments/create" element={<CreateAppointment />} />
-          <Route path
+          <Route path='/salespeople'>
+            <Route path='' element={<SalespeopleList />} />
+            <Route path='new' element={<SalespeopleCreate />} />
+          </Route>
         </Routes>
       </div>
     </BrowserRouter>

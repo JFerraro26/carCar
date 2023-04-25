@@ -3,7 +3,7 @@
 Team:
 
 * Miguel Robles - Service
-* Person 2 - Which microservice?
+* Joseph Ferraro - Sales microservice
 
 ## Design
 

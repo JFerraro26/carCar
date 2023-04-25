@@ -13,6 +13,7 @@ import CreateAppointment from './CreateAppointment';
 import SalespeopleList from './SalespeopleList';
 import SalespeopleCreate from './SalesPeopleCreate';
 
+
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +34,7 @@ function App() {
           <Route path="/technicians" element={<TechnicianList />} />
           <Route path="/technicians/create" element={<CreateTechnician />} />
           <Route path="/appointments/create" element={<CreateAppointment />} />
+          <Route path
         </Routes>
       </div>
     </BrowserRouter>

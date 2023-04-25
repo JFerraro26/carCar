@@ -11,26 +11,26 @@ django.setup()
 
 from service_rest.models import AutomobileVO
 
-def get_vins():
-    response = requests.get('http://localhost:8000/api/automobiles/')
-    if response.ok:
-        data = response.json()
-        return [automobile['vin'] for automobile in data]
-    else:
-        raise ValueError('Error retrieving VINs:', response.status_code)
+def get_vin():
+    url = "http://project-beta-inventory-api-1:8000/api/automobiles"
+    response = requests.get(url)
+    content = json.loads(response.content)
+    for automobile in content["autos"]:
+        AutomobileVO.objects.update_or_create(
+            defaults={
+                "vin": automobile["vin"]
+            }
+        )
+
 
 def poll():
     while True:
         print('Service poller polling for data')
         try:
-            vins = get_vins()
-
-            for vin in vins:
-                AutomobileVO.objects.update_or_create(vin=vin)
+            get_vin()
         except Exception as e:
-            print('Error polling for VINs:', e, file=sys.stderr)
-        time.sleep(60)
-
+            print(e, file=sys.stderr)
+        time.sleep(10)
 
 
 if __name__ == "__main__":

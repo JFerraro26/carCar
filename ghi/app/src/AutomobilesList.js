@@ -64,12 +64,13 @@ function AutomobileList() {
                     {automobiles?.map(auto => {
                         return (
                             <tr key={auto.id}>
+                                {console.log(auto.sold)}
                                <td>{auto.vin}</td>
                                <td>{auto.color}</td>
                                <td>{auto.year}</td>
                                <td>{auto.model.name}</td>
                                <td>{auto.model.manufacturer.name}</td>
-                               <td>Boolean Placeholder</td>
+                               <td>{auto.sold?"Yes":"No"}</td>
                                <td><button onClick={()=>DeleteButtonClick(auto)} type="button" className="btn btn-outline-danger">Delete Automobile</button></td>
                             </tr>
                         );

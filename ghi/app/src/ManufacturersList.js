@@ -13,6 +13,9 @@ function ManufacturersList() {
                 const updatedMan = manufacturers.filter(item => item.id !== manId);
                 setManufacturers(updatedMan);
             }
+            else {
+                console.error(response)
+            }
 
         }
     }
@@ -20,11 +23,11 @@ function ManufacturersList() {
     const fetchManufactureData = async () => {
         const response = await fetch('http://localhost:8100/api/manufacturers/');
         if (response.ok) {
-        const data = await response.json();
-        setManufacturers(data.manufacturers);
+            const data = await response.json();
+            setManufacturers(data.manufacturers);
         }
         else {
-        console.error(response);
+            console.error(response);
         }
   }
   useEffect(() =>{

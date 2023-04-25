@@ -33,6 +33,7 @@ function ManufacturersList() {
 
     return (
         <>
+            <h1>Manufacturers</h1>
             <table className="table table-striped">
                 <thead>
                     <tr>

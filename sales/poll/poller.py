@@ -17,14 +17,19 @@ def get_auto():
     response = requests.get("http://project-beta-inventory-api-1:8000/api/automobiles/")
     content = json.loads(response.content)
     for auto in content["autos"]:
-        AutomobileVO.objects.update_or_create(
-            color = auto["color"],
-            year = auto["year"],
-            # model = auto["model"],
-            import_href = auto["href"],
-            sold = auto["sold"],
-            defaults = {"vin": auto["vin"]},
-        )
+        current_cars = AutomobileVO.objects.all().values()
+        current_car_list = []
+        for car in current_cars:
+            current_car_list.append(car["vin"])
+        if auto["vin"] not in current_car_list:
+            AutomobileVO.objects.update_or_create(
+                color = auto["color"],
+                year = auto["year"],
+                # model = auto["model"],
+                import_href = auto["href"],
+                sold = auto["sold"],
+                defaults = {"vin": auto["vin"]},
+            )
 
 def poll():
     while True:
@@ -33,7 +38,7 @@ def poll():
             get_auto()
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(60)
+        time.sleep(10)
 
 
 if __name__ == "__main__":

@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import Appointment, AutomobileVO, Technician
 from django.http import JsonResponse
 import json
+from django.db.models import Q
 
 
 class AutomobileVOEncoder(ModelEncoder):
@@ -33,6 +34,7 @@ class AppointmentEncoder(ModelEncoder):
         "date_time",
         "reason",
         "technician",
+        "status",
     ]
     encoders = {
         "vin": AutomobileVOEncoder(),
@@ -65,6 +67,15 @@ def create_technician(request):
     )
 
 @csrf_exempt
+@require_http_methods(["GET"])
+def appointment_list(request):
+    if request.method == "GET":
+        appointments = Appointment.objects.all()
+        appointment_list = [json.loads(AppointmentEncoder().encode(appointment)) for appointment in appointments]
+        return JsonResponse({"appointments": appointment_list}, safe=False)
+
+
+@csrf_exempt
 @require_http_methods(["POST"])
 def create_appointment(request):
     data = json.loads(request.body)
@@ -82,3 +93,39 @@ def create_appointment(request):
         encoder=AppointmentEncoder,
         safe=False
     )
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def appointment_search(request):
+    vin = request.GET.get('vin', '')
+
+    if vin:
+        appointments = Appointment.objects.filter(Q(vin__vin__icontains=vin))
+    else:
+        appointments = Appointment.objects.all()
+
+    appointment_list = [json.loads(AppointmentEncoder().encode(appointment)) for appointment in appointments]
+    return JsonResponse({"appointments": appointment_list}, safe=False)
+
+@csrf_exempt
+@require_http_methods(["PUT"])
+def cancel_appointment(request, id):
+    try:
+        appointment = Appointment.objects.get(id=id)
+        appointment.status = "Cancelled"
+        appointment.save()
+        return JsonResponse(AppointmentEncoder().encode(appointment), safe=False)
+    except Appointment.DoesNotExist:
+        return JsonResponse({"error": "Appointment not found"}, status=404)
+
+
+@csrf_exempt
+@require_http_methods(["PUT"])
+def finish_appointment(request, id):
+    try:
+        appointment = Appointment.objects.get(id=id)
+        appointment.status = "Finished"
+        appointment.save()
+        return JsonResponse(AppointmentEncoder().encode(appointment), safe=False)
+    except Appointment.DoesNotExist:
+        return JsonResponse({"error": "Appointment not found"}, status=404)

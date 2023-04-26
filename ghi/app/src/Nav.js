@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
+
 function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success">
@@ -49,7 +50,13 @@ function Nav() {
             <li>
               <NavLink className="nav-link" activeclassname="active" to="/appointments/create">Create Appointment</NavLink>
             </li>
-            </ul>
+            <li>
+              <NavLink className="nav-link" activeclassname="active" to="/appointments">Service Appointments</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" activeclassname="active" to="/service-history">Service History</NavLink>
+            </li>
+          </ul>
         </div>
       </div>
     </nav>

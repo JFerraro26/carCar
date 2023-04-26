@@ -59,7 +59,7 @@ function CustomerCreate() {
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Create a Customer</h1>
+                    <h1>Add a Customer</h1>
                     <form onSubmit={handleSubmit} id="create-new-customer">
                     <div className="form-floating mb-3">
                         <input value={firstName} onChange={handleFirstNameChange} placeholder="First Name" required type="text" id="first_name" name="first_name" className="form-control"/>

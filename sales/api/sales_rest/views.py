@@ -16,6 +16,8 @@ class AutomobileVoEncoder(ModelEncoder):
         "year",
         "import_href",
     ]
+    def get_extra_data(self, o):
+        return {"sold": o.sold}
 
 class SalespersonEncoder(ModelEncoder):
     model = Salesperson
@@ -179,3 +181,28 @@ def sale_delete_edit_view(request, id):
             return JsonResponse({"message": "deleted"}, status=200)
         else:
             return JsonResponse({"message": "Sale Object not present, Unable to delete"}, status=400)
+
+
+@require_http_methods("GET")
+def available_car_list(request):
+    cars = AutomobileVO.objects.filter(sold=False)
+    print(cars)
+    if cars:
+        return JsonResponse(
+            {"cars": cars},
+            encoder=AutomobileVoEncoder,
+        )
+    else:
+        return JsonResponse({"message":"No Available Cars Found"}, status=400)
+
+
+@require_http_methods("PUT")
+def available_cars_update(request, id):
+    data = json.loads(request.body)
+    AutomobileVO.objects.filter(id=id).update(**data)
+    car = AutomobileVO.objects.get(id=id)
+    return JsonResponse(
+        car,
+        encoder=AutomobileVoEncoder,
+        safe=False,
+    )

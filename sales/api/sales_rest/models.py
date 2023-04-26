@@ -8,6 +8,7 @@ class AutomobileVO(models.Model):
     year = models.PositiveSmallIntegerField()
     # model = models.CharField(max_length=100)
     import_href = models.CharField(max_length=300, unique=True)
+    sold = models.BooleanField(default=False)
 
     def __str__(self):
         return self.vin

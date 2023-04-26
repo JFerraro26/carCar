@@ -27,6 +27,9 @@ function CustomerList() {
             const data = await response.json()
             setCustomers(data.customers)
         }
+        else {
+            console.error(response)
+        }
     }
 
     useEffect(() => {
@@ -50,11 +53,11 @@ function CustomerList() {
                     {customers?.map(cust => {
                         return (
                             <tr key={cust.id}>
-                            <td>{cust.first_name}</td>
-                            <td>{cust.last_name}</td>
-                            <td>{cust.phone_number}</td>
-                            <td>{cust.address}</td>
-                            <td><button onClick={()=>DeleteButtonClick(cust)} type="button" className="btn btn-outline-danger">Delete Customer</button></td>
+                                <td>{cust.first_name}</td>
+                                <td>{cust.last_name}</td>
+                                <td>{cust.phone_number}</td>
+                                <td>{cust.address}</td>
+                                <td><button onClick={()=>DeleteButtonClick(cust)} type="button" className="btn btn-outline-danger">Delete Customer</button></td>
                             </tr>
                         );
                     })}

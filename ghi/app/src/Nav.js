@@ -32,23 +32,29 @@ function Nav() {
                 <NavLink className="nav-link" aria-current="page" to="/salespeople">Salespeople</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/salespeople/new">Create Salesperson</NavLink>
+                <NavLink className="nav-link" aria-current="page" to="/salespeople/new">Add a Salesperson</NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/customers">Customers</NavLink>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" aria-current="page" to="/customers/new">Create Customer</NavLink>
+                <NavLink className="nav-link" aria-current="page" to="/customers/new">Add a Customer</NavLink>
               </li>
-            <li>
-              <NavLink className="nav-link" activeclassname="active" to="/technicians">Technicians</NavLink>
-            </li>
-            <li>
-              <NavLink className="nav-link" activeclassname="active" to="/technicians/create">Add Technician</NavLink>
-            </li>
-            <li>
-              <NavLink className="nav-link" activeclassname="active" to="/appointments/create">Create Appointment</NavLink>
-            </li>
+              <li>
+                <NavLink className="nav-link" activeclassname="active" to="/technicians">Technicians</NavLink>
+              </li>
+              <li>
+                <NavLink className="nav-link" activeclassname="active" to="/technicians/create">Add Technician</NavLink>
+              </li>
+              <li>
+                <NavLink className="nav-link" activeclassname="active" to="/appointments/create">Create Appointment</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" aria-current="page" to="/sales">Sales</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" aria-current="page" to="/sales/new">Add a Sale</NavLink>
+              </li>
             </ul>
         </div>
       </div>

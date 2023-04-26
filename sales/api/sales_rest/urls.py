@@ -6,6 +6,8 @@ from .views import (
     customer_list_or_create,
     sale_list_create,
     sale_delete_edit_view,
+    available_car_list,
+    available_cars_update,
     )
 
 
@@ -17,5 +19,7 @@ urlpatterns = [
     path("customers/", customer_list_or_create),
     path("customers/<int:id>/", customer_edit_view_delete),
     path("sales/", sale_list_create),
-    path("sales/<int:id>", sale_delete_edit_view),
+    path("sales/<int:id>/", sale_delete_edit_view),
+    path("cars/", available_car_list),
+    path("cars/<int:id>/", available_cars_update),
 ]

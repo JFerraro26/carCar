@@ -51,7 +51,7 @@ function SalespeopleCreate() {
         <div className="row">
             <div className="offset-3 col-6">
                 <div className="shadow p-4 mt-4">
-                    <h1>Create a Salesperson</h1>
+                    <h1>Add a Salesperson</h1>
                     <form onSubmit={handleSubmit} id="create-new-salesperson">
                         <div className="form-floating mb-3">
                             <input value={firstName} onChange={handleFirstNameChange} placeholder="First Name" required type="text" id="first_name" name="first_name" className="form-control"/>

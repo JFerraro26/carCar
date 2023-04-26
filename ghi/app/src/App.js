@@ -14,6 +14,10 @@ import CreateAppointment from './CreateAppointment';
 import ServiceHistory from './ServiceHistory';
 import SalespeopleList from './SalespeopleList';
 import SalespeopleCreate from './SalesPeopleCreate';
+import CustomerList from './CustomerList';
+import CustomerCreate from './CustomerCreate';
+import SalesList from './SalesList';
+import SalesFormCreate from './SalesCreate';
 
 
 
@@ -42,6 +46,14 @@ function App() {
           <Route path='/salespeople'>
             <Route path='' element={<SalespeopleList />} />
             <Route path='new' element={<SalespeopleCreate />} />
+          </Route>
+          <Route path='customers'>
+            <Route path="" element={<CustomerList />} />
+            <Route path="new" element={<CustomerCreate />} />
+          </Route>
+          <Route path='sales'>
+            <Route path='' element={<SalesList />} />
+            <Route path='new' element={<SalesFormCreate />} />
           </Route>
         </Routes>
       </div>

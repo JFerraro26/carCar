@@ -35,7 +35,6 @@ function AutomobileFormCreate() {
     const [year, setYear] = useState("");
     const [vin, setVin] = useState("");
     const [model, setModel] = useState("");
-    console.log(models)
 
     const handleColorChange = (event) => {
         const value = event.target.value;

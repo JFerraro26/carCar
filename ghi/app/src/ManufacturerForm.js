@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 function ManufacturerFormCreate(){
     const handleSubmit = async (event) => {
@@ -37,11 +37,11 @@ function ManufacturerFormCreate(){
                 <div className="shadow p-4 mt-4">
                     <h1>Create a Manufacturer</h1>
                     <form onSubmit={handleSubmit} id="create-new-manufacturer">
-                    <div className="form-floating mb-3">
-                        <input value={name} onChange={handleNameChange} placeholder="Name" required type="text" id="name" name="name" className="form-control"/>
-                        <label htmlFor="name">Manufacturer Name...</label>
-                    </div>
-                    <button className="btn btn-outline-primary">Submit</button>
+                        <div className="form-floating mb-3">
+                            <input value={name} onChange={handleNameChange} placeholder="Name" required type="text" id="name" name="name" className="form-control"/>
+                            <label htmlFor="name">Manufacturer Name...</label>
+                        </div>
+                        <button className="btn btn-outline-primary">Submit</button>
                     </form>
                 </div>
             </div>

@@ -22,7 +22,8 @@ def get_auto():
             year = auto["year"],
             # model = auto["model"],
             import_href = auto["href"],
-            defaults = {"vin": auto["vin"]}
+            sold = auto["sold"],
+            defaults = {"vin": auto["vin"]},
         )
 
 def poll():

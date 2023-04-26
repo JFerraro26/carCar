@@ -9,7 +9,6 @@ function AppointmentList() {
       const response = await fetch('http://localhost:8080/api/appointments/');
       const data = await response.json();
       setAppointments(data.appointments);
-      console.log(data.appointments)
     };
     fetchAppointments();
   }, []);

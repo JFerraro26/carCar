@@ -4,7 +4,8 @@ function CreateAppointment({ onAppointmentCreated }) {
   const [technicians, setTechnicians] = useState([]);
   const [vin, setVin] = useState('');
   const [customer, setCustomer] = useState('');
-  const [dateTime, setDateTime] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [technician, setTechnician] = useState('');
   const [reason, setReason] = useState('');
 
@@ -12,7 +13,8 @@ function CreateAppointment({ onAppointmentCreated }) {
     const fetchTechnicians = async () => {
       const response = await fetch('http://localhost:8080/api/technicians/');
       const data = await response.json();
-      setTechnicians(data.technicians);
+      const parsedTechnicians = data.technicians.map(tech => JSON.parse(tech));
+      setTechnicians(parsedTechnicians);
     };
     fetchTechnicians();
   }, []);
@@ -23,7 +25,7 @@ function CreateAppointment({ onAppointmentCreated }) {
     const newAppointment = {
       vin: vin,
       customer: customer,
-      date_time: dateTime,
+      date_time: `${date}T${time}`,
       technician: technician,
       reason: reason,
     };
@@ -40,7 +42,8 @@ function CreateAppointment({ onAppointmentCreated }) {
       if (response.ok) {
         setVin('');
         setCustomer('');
-        setDateTime('');
+        setDate('');
+        setTime('');
         setTechnician('');
         setReason('');
         if (onAppointmentCreated) {
@@ -63,54 +66,66 @@ function CreateAppointment({ onAppointmentCreated }) {
               <h2 className="card-title">Create a Service Appointment</h2>
               <form onSubmit={handleSubmit}>
                 <div className="mb-3">
+                  <label htmlFor="name" className="form-label">Automobile VIN</label>
                   <input
                     type="text"
                     className="form-control"
                     id="vin"
-                    placeholder="VIN..."
                     value={vin}
                     onChange={(event) => setVin(event.target.value)}
                   />
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="name" className="form-label">Customer</label>
                   <input
                     type="text"
                     className="form-control"
                     id="customer"
-                    placeholder="Customer name..."
                     value={customer}
                     onChange={(event) => setCustomer(event.target.value)}
                   />
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="name" className="form-label">Date</label>
                   <input
-                    type="datetime-local"
+                    type="date"
                     className="form-control"
-                    id="dateTime"
-                    value={dateTime}
-                    onChange={(event) => setDateTime(event.target.value)}
+                    id="date"
+                    value={date}
+                    onChange={(event) => setDate(event.target.value)}
                   />
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="name" className="form-label">Time</label>
+                  <input
+                    type="time"
+                    className="form-control"
+                    id="time"
+                    value={time}
+                    onChange={(event) => setTime(event.target.value)}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">Technician</label>
                   <select
                     className="form-select"
                     value={technician}
                     onChange={(event) => setTechnician(event.target.value)}
                   >
-                    <option value="">Select a technician...</option>
-                    {technicians.map((tech) => (
-                      <option key={tech.pk} value={tech.pk}>
+                    <option value="">Choose a technician...</option>
+                    {technicians?.map((tech, index) => (
+                      <option key={index} value={tech.id}>
                         {tech.first_name} {tech.last_name} ({tech.employee_id})
                       </option>
                     ))}
                   </select>
                 </div>
                 <div className="mb-3">
+                  <label htmlFor="name" className="form-label">Reason</label>
                   <input
                     type="text"
                     className="form-control"
                     id="reason"
-                    placeholder="Reason for service..."
                     value={reason}
                     onChange={(event) => setReason(event.target.value)}
                   />

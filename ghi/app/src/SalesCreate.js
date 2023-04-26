@@ -23,6 +23,7 @@ function SalesFormCreate() {
             const carData = {};
             carData.sold = true;
             const carId = newSale["automobile"].id;
+            console.log(carId)
             const carUrl = `http://localhost:8090/api/cars/${carId}/`
             const carFetchConfig = {
                 method: "put",

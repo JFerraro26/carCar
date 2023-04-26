@@ -12,6 +12,8 @@ import CreateTechnician from './CreateTechnician';
 import CreateAppointment from './CreateAppointment';
 import SalespeopleList from './SalespeopleList';
 import SalespeopleCreate from './SalesPeopleCreate';
+import CustomerList from './CustomerList';
+import CustomerCreate from './CustomerCreate';
 
 
 function App() {
@@ -37,6 +39,10 @@ function App() {
           <Route path='/salespeople'>
             <Route path='' element={<SalespeopleList />} />
             <Route path='new' element={<SalespeopleCreate />} />
+          </Route>
+          <Route path='customers'>
+            <Route path="" element={<CustomerList />} />
+            <Route path="new" element={<CustomerCreate />} />
           </Route>
         </Routes>
       </div>

@@ -68,7 +68,7 @@ function CreateTechnician({ onTechnicianCreated }) {
                 </div>
                 <div className="mb-3">
                   <input
-                    type="number"
+                    type="text"
                     className="form-control"
                     id="employeeId"
                     placeholder="Employee ID..."

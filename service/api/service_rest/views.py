@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from common.json import ModelEncoder
 from django.views.decorators.http import require_http_methods
-from django.views.decorators.csrf import csrf_exempt
 from .models import Appointment, AutomobileVO, Technician
 from django.http import JsonResponse
 import json
@@ -42,7 +41,6 @@ class AppointmentEncoder(ModelEncoder):
     }
 
 
-@csrf_exempt
 @require_http_methods(["GET"])
 def technician_list(request):
     if request.method == "GET":
@@ -56,7 +54,6 @@ def technician_list(request):
             status=200
     )
 
-@csrf_exempt
 @require_http_methods(["POST"])
 def create_technician(request):
     data = json.loads(request.body)
@@ -73,20 +70,17 @@ def create_technician(request):
         status=201
     )
 
-@csrf_exempt
 @require_http_methods(["GET"])
 def appointment_list(request):
     if request.method == "GET":
-        appointments = Appointment.objects.all()
+        appointments = Appointment.objects.filter(status="Active")
         return JsonResponse(
-            {"appointments":appointments},
+            {"appointments": appointments},
             encoder=AppointmentEncoder,
             safe=False,
             status=200
-    )
+        )
 
-
-@csrf_exempt
 @require_http_methods(["POST"])
 def create_appointment(request):
     data = json.loads(request.body)
@@ -101,21 +95,16 @@ def create_appointment(request):
         status=201
     )
 
-@csrf_exempt
 @require_http_methods(["GET"])
 def appointment_search(request):
     vin = request.GET.get('vin', '')
-
     if vin:
         appointments = Appointment.objects.filter(Q(vin__vin__icontains=vin))
     else:
         appointments = Appointment.objects.all()
-
     appointment_list = [json.loads(AppointmentEncoder().encode(appointment)) for appointment in appointments]
-
     return JsonResponse({"appointments": appointment_list}, safe=False, status=200)
 
-@csrf_exempt
 @require_http_methods(["PUT"])
 def cancel_appointment(request, id):
     try:
@@ -127,7 +116,6 @@ def cancel_appointment(request, id):
         return JsonResponse({"error": "Appointment not found"}, status=404)
 
 
-@csrf_exempt
 @require_http_methods(["PUT"])
 def finish_appointment(request, id):
     try:
@@ -137,3 +125,14 @@ def finish_appointment(request, id):
         return JsonResponse(AppointmentEncoder().encode(appointment), safe=False)
     except Appointment.DoesNotExist:
         return JsonResponse({"error": "Appointment not found"}, status=404)
+
+@require_http_methods(["GET"])
+def all_appointments(request):
+    if request.method == "GET":
+        appointments = Appointment.objects.all()
+        return JsonResponse(
+            {"appointments": appointments},
+            encoder=AppointmentEncoder,
+            safe=False,
+            status=200
+        )

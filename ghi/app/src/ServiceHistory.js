@@ -3,44 +3,38 @@ import React, { useState, useEffect } from 'react';
 
 function ServiceHistory() {
   const [appointments, setAppointments] = useState([]);
-  const [searchInput, setSearchInput] = useState('');
+  const [searchValue, setSearchValue] = useState('');
+
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      const response = await fetch('http://localhost:8080/api/appointments/');
+      const response = await fetch('http://localhost:8080/api/appointments/all/');
       const data = await response.json();
       setAppointments(data.appointments);
     };
     fetchAppointments();
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    searchAppointments(searchInput);
-  };
 
-  const searchAppointments = async (vin) => {
-    const response = await fetch(`http://localhost:8080/api/appointments/search/?vin=${vin}`);
-    const data = await response.json();
-    setAppointments(data.appointments);
-  };
+  const filteredAppointments = appointments.filter(appointment =>
+    appointment.vin.toLowerCase().includes(searchValue.toLowerCase())
+  );
+
+
+  const handleSearchChange = (event) => {
+    setSearchValue(event.target.value);
+  }
+
 
   return (
     <div className="container">
       <h2 className="my-4">Service History</h2>
-      <form onSubmit={handleSearch}>
-        <div className="mb-3">
-          <label htmlFor="vin" className="form-label">Search by VIN</label>
-          <input
-            type="text"
-            className="form-control"
-            id="vin"
-            value={searchInput}
-            onChange={(e) => setSearchInput(e.target.value)}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary mb-4">Search</button>
-      </form>
+
+      <div className="form-group">
+        <label htmlFor="vin-search">Search by VIN:</label>
+        <input type="text" className="form-control" id="vin-search" value={searchValue} onChange={handleSearchChange} />
+      </div>
+
       <table className="table table-striped">
         <thead>
           <tr>
@@ -54,7 +48,7 @@ function ServiceHistory() {
           </tr>
         </thead>
         <tbody>
-          {appointments.map((appointment) => (
+          {filteredAppointments.map((appointment) => (
             <tr key={appointment.id}>
               <td>{appointment.vin}</td>
               <td>{appointment.vin.import_href ? 'Yes' : 'No'}</td>

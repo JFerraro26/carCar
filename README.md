@@ -23,8 +23,7 @@ An applicaton designed to help car dealerships keep track of their available inv
 ![Design](ReadmeDesign.jpg)
 ## Service microservice
 
-Explain your models and integration with the inventory
-microservice, here.
+
 
 ## Sales microservice
 

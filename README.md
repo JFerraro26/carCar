@@ -6,7 +6,7 @@ Team:
 * Joseph Ferraro - Sales microservice
 
 ## Design
-
+![Design](ReadmeDesign.jpg)
 ## Service microservice
 
 

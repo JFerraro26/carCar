@@ -23,10 +23,6 @@ def get_auto():
             current_car_list.append(car["vin"])
         if auto["vin"] not in current_car_list:
             AutomobileVO.objects.update_or_create(
-                color = auto["color"],
-                year = auto["year"],
-                # model = auto["model"],
-                import_href = auto["href"],
                 sold = auto["sold"],
                 defaults = {"vin": auto["vin"]},
             )
@@ -38,7 +34,7 @@ def poll():
             get_auto()
         except Exception as e:
             print(e, file=sys.stderr)
-        time.sleep(10)
+        time.sleep(60)
 
 
 if __name__ == "__main__":

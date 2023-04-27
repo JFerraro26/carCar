@@ -6,9 +6,26 @@ function AppointmentList() {
 
   useEffect(() => {
     const fetchAppointments = async () => {
-      const response = await fetch('http://localhost:8080/api/appointments/');
-      const data = await response.json();
-      setAppointments(data.appointments);
+      try {
+        const appointmentResponse = await fetch('http://localhost:8080/api/appointments/');
+        const appointmentData = await appointmentResponse.json();
+
+        const automobileResponse = await fetch('http://localhost:8100/api/automobiles/');
+        const automobileData = await automobileResponse.json();
+
+        const updatedAppointments = appointmentData.appointments.map((appointment) => {
+          const automobile = automobileData.autos.find((auto) => auto.vin === appointment.vin);
+          if (automobile) {
+            appointment.vip = true;
+          } else {
+            appointment.vip = false;
+          }
+          return appointment;
+        });
+        setAppointments(updatedAppointments);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
     };
     fetchAppointments();
   }, []);
@@ -24,12 +41,7 @@ function AppointmentList() {
       });
 
       if (response.ok) {
-        const updatedAppointment = await response.json();
-        setAppointments(
-          appointments.map((appointment) =>
-            appointment.id === id ? updatedAppointment : appointment
-          )
-        );
+        setAppointments(appointments.filter(appointment => appointment.id !== id));
       } else {
         console.error('Error canceling appointment:', response.statusText);
       }
@@ -37,7 +49,6 @@ function AppointmentList() {
       console.error('Error canceling appointment:', error);
     }
   };
-
 
   const finishAppointment = async (id) => {
     try {
@@ -50,12 +61,7 @@ function AppointmentList() {
       });
 
       if (response.ok) {
-        const updatedAppointment = await response.json();
-        setAppointments(
-          appointments.map((appointment) =>
-            appointment.id === id ? updatedAppointment : appointment
-          )
-        );
+        setAppointments(appointments.filter(appointment => appointment.id !== id));
       } else {
         console.error('Error finishing appointment:', response.statusText);
       }
@@ -75,31 +81,36 @@ function AppointmentList() {
             <th>Date & Time</th>
             <th>Technician</th>
             <th>Reason</th>
+            <th>VIP</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {appointments.map((appointment) => (
-            <tr key={appointment.id}>
-              <td>{appointment.vin} {appointment.vin?.import_href ? '(Purchased from dealership)' : ''}</td>
-              <td>{appointment.customer}</td>
-              <td>{appointment.date_time}</td>
-              <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
-              <td>{appointment.reason}</td>
-              <td>
-                <button className="btn btn-danger" onClick={() => cancelAppointment(appointment.id)}>
-                  Cancel
-                </button>
-                <button className="btn btn-success ms-2" onClick={() => finishAppointment(appointment.id)}>
-                  Finish
-                </button>
-              </td>
-            </tr>
+            appointment.technician && (
+              <tr key={appointment.id}>
+                <td>{appointment.vin} {appointment.vin?.import_href ? '(Purchased from dealership)' : ''}</td>
+                <td>{appointment.customer}</td>
+                <td>{appointment.date_time}</td>
+                <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
+                <td>{appointment.reason}</td>
+                <td>{appointment.vip ? 'Yes' : 'No'}</td>
+                <td>
+                  <button className="btn btn-danger" onClick={() => cancelAppointment(appointment.id)}>
+                    Cancel
+                  </button>
+                  <button className="btn btn-success ms-2" onClick={() => finishAppointment(appointment.id)}>
+                    Finish
+                  </button>
+                </td>
+              </tr>
+            )
           ))}
         </tbody>
       </table>
     </div>
   );
+
 }
 
 export default AppointmentList;

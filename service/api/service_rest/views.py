@@ -73,7 +73,7 @@ def create_technician(request):
 @require_http_methods(["GET"])
 def appointment_list(request):
     if request.method == "GET":
-        appointments = Appointment.objects.filter(status="Active")
+        appointments = Appointment.objects.filter(status="Created")
         return JsonResponse(
             {"appointments": appointments},
             encoder=AppointmentEncoder,

@@ -29,12 +29,10 @@ function ServiceHistory() {
   return (
     <div className="container">
       <h2 className="my-4">Service History</h2>
-
       <div className="form-group">
         <label htmlFor="vin-search">Search by VIN:</label>
         <input type="text" className="form-control" id="vin-search" value={searchValue} onChange={handleSearchChange} />
       </div>
-
       <table className="table table-striped">
         <thead>
           <tr>

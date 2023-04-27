@@ -56,13 +56,13 @@ function ServiceHistory() {
         <tbody>
           {appointments.map((appointment) => (
             <tr key={appointment.id}>
-              <td>{appointment.vin?.vin}</td>
-              <td>{appointment.vin?.import_href ? 'Yes' : 'No'}</td>
+              <td>{appointment.vin}</td>
+              <td>{appointment.vin.import_href ? 'Yes' : 'No'}</td>
               <td>{appointment.customer}</td>
               <td>{appointment.date_time}</td>
-              <td>{appointment.technician?.first_name} {appointment.technician?.last_name}</td>
+              <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
               <td>{appointment.reason}</td>
-              <td>{appointment.status}</td>
+              <td>{appointment.status || "Created"}</td>
             </tr>
           ))}
         </tbody>

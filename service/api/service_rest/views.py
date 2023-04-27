@@ -22,6 +22,7 @@ class TechnicianEncoder(ModelEncoder):
         "first_name",
         "last_name",
         "employee_id",
+        "id"
     ]
 
 
@@ -37,7 +38,6 @@ class AppointmentEncoder(ModelEncoder):
         "status",
     ]
     encoders = {
-        "vin": AutomobileVOEncoder(),
         "technician": TechnicianEncoder(),
     }
 
@@ -48,7 +48,12 @@ def technician_list(request):
     if request.method == "GET":
         technicians = Technician.objects.all()
         technician_list = [TechnicianEncoder().encode(technician) for technician in technicians]
-        return JsonResponse({"technicians": technician_list}, safe=False)
+        print(technician_list)
+        return JsonResponse(
+            technicians,
+            encoder=TechnicianEncoder,
+            safe=False
+    )
 
 @csrf_exempt
 @require_http_methods(["POST"])
@@ -71,23 +76,21 @@ def create_technician(request):
 def appointment_list(request):
     if request.method == "GET":
         appointments = Appointment.objects.all()
-        appointment_list = [json.loads(AppointmentEncoder().encode(appointment)) for appointment in appointments]
-        return JsonResponse({"appointments": appointment_list}, safe=False)
+        return JsonResponse(
+            {"appointments":appointments},
+            encoder=AppointmentEncoder,
+            safe=False
+    )
 
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def create_appointment(request):
     data = json.loads(request.body)
+    technician = Technician.objects.get(id=data["technician"])
+    data["technician"]=technician
+    appointment = Appointment.objects.create(**data)
 
-    appointment = Appointment(
-        date_time=data['date_time'],
-        reason=data['reason'],
-        vin=data['vin'],
-        customer=data['customer'],
-        technician=data['technician'],
-    )
-    appointment.save()
     return JsonResponse(
         appointment,
         encoder=AppointmentEncoder,

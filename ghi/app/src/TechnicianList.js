@@ -7,11 +7,8 @@ function TechnicianList() {
     const fetchTechnicians = async () => {
       const response = await fetch('http://localhost:8080/api/technicians/');
       const data = await response.json();
-      const technicians = data.technicians.map(tech => JSON.parse(tech));
-      setTechnicians(technicians);
+      setTechnicians(data);
     };
-
-
     fetchTechnicians();
   }, []);
 
@@ -27,8 +24,8 @@ function TechnicianList() {
             </tr>
           </thead>
           <tbody>
-            {technicians && technicians.map((technician, index) => (
-              <tr key={index}>
+            {technicians.map((technician) => (
+              <tr key={technician.id}>
                 <td>{technician.employee_id}</td>
                 <td>{technician.first_name} {technician.last_name}</td>
               </tr>

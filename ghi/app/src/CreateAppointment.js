@@ -13,8 +13,7 @@ function CreateAppointment({ onAppointmentCreated }) {
     const fetchTechnicians = async () => {
       const response = await fetch('http://localhost:8080/api/technicians/');
       const data = await response.json();
-      const parsedTechnicians = data.technicians.map(tech => JSON.parse(tech));
-      setTechnicians(parsedTechnicians);
+      setTechnicians(data);
     };
     fetchTechnicians();
   }, []);
@@ -113,11 +112,12 @@ function CreateAppointment({ onAppointmentCreated }) {
                     onChange={(event) => setTechnician(event.target.value)}
                   >
                     <option value="">Choose a technician...</option>
-                    {technicians?.map((tech, index) => (
-                      <option key={index} value={tech.id}>
+                    {technicians?.map((tech) => {
+                      return (
+                      <option key={tech.id} value={tech.id}>
                         {tech.first_name} {tech.last_name} ({tech.employee_id})
                       </option>
-                    ))}
+                    )})}
                   </select>
                 </div>
                 <div className="mb-3">

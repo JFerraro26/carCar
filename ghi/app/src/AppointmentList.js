@@ -15,7 +15,7 @@ function AppointmentList() {
 
   const cancelAppointment = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/appointments/${id}/cancel`, {
+      const response = await fetch(`http://localhost:8080/api/appointments/${id}/cancel/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ function AppointmentList() {
 
   const finishAppointment = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8080/api/appointments/${id}/finish`, {
+      const response = await fetch(`http://localhost:8080/api/appointments/${id}/finish/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -81,10 +81,10 @@ function AppointmentList() {
         <tbody>
           {appointments.map((appointment) => (
             <tr key={appointment.id}>
-              <td>{appointment.vin?.vin} {appointment.vin?.import_href ? '(Purchased from dealership)' : ''}</td>
+              <td>{appointment.vin} {appointment.vin?.import_href ? '(Purchased from dealership)' : ''}</td>
               <td>{appointment.customer}</td>
               <td>{appointment.date_time}</td>
-              <td>{appointment.technician?.first_name} {appointment.technician?.last_name}</td>
+              <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
               <td>{appointment.reason}</td>
               <td>
                 <button className="btn btn-danger" onClick={() => cancelAppointment(appointment.id)}>

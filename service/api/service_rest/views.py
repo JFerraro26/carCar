@@ -52,7 +52,8 @@ def technician_list(request):
         return JsonResponse(
             technicians,
             encoder=TechnicianEncoder,
-            safe=False
+            safe=False,
+            status=200
     )
 
 @csrf_exempt
@@ -68,7 +69,8 @@ def create_technician(request):
     return JsonResponse(
         technician,
         encoder=TechnicianEncoder,
-        safe=False
+        safe=False,
+        status=201
     )
 
 @csrf_exempt
@@ -79,7 +81,8 @@ def appointment_list(request):
         return JsonResponse(
             {"appointments":appointments},
             encoder=AppointmentEncoder,
-            safe=False
+            safe=False,
+            status=200
     )
 
 
@@ -94,7 +97,8 @@ def create_appointment(request):
     return JsonResponse(
         appointment,
         encoder=AppointmentEncoder,
-        safe=False
+        safe=False,
+        status=201
     )
 
 @csrf_exempt
@@ -108,7 +112,8 @@ def appointment_search(request):
         appointments = Appointment.objects.all()
 
     appointment_list = [json.loads(AppointmentEncoder().encode(appointment)) for appointment in appointments]
-    return JsonResponse({"appointments": appointment_list}, safe=False)
+
+    return JsonResponse({"appointments": appointment_list}, safe=False, status=200)
 
 @csrf_exempt
 @require_http_methods(["PUT"])

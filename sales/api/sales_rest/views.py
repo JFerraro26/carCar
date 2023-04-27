@@ -59,6 +59,7 @@ def salesperson_list_or_create(request):
             return JsonResponse(
                 {"salespeople": salespeople},
                 encoder= SalespersonEncoder,
+                status=200,
             )
         else:
             return JsonResponse({"message":"No Salespeople Found"}, status=400)
@@ -70,12 +71,13 @@ def salesperson_list_or_create(request):
                 salesperson,
                 encoder=SalespersonEncoder,
                 safe=False,
+                status=200,
             )
         else:
             return JsonResponse({"message":"Could Not Create Salesperson"}, status=400)
 
 
-# Joe may add more functionality as a stretch goal
+# Joe: may add more functionality as a stretch goal
 @require_http_methods(["DELETE"])
 def salesperson_delete_edit_view(request, id):
     if request.method == "DELETE":
@@ -95,6 +97,7 @@ def customer_list_or_create(request):
             return JsonResponse(
                 {"customers": customers},
                 encoder=CustomerEncoder,
+                status=200,
             )
         else:
             return JsonResponse({"message":"No Customers Found"}, status=400)
@@ -106,12 +109,13 @@ def customer_list_or_create(request):
                 customer,
                 encoder=CustomerEncoder,
                 safe=False,
+                status=200,
                 )
         else:
             return JsonResponse({"message":"Could Not Create Customer"}, status=400)
 
 
-# Joe may add more as a stretch goal
+# Joe: may add more as a stretch goal
 @require_http_methods(["DELETE"])
 def customer_edit_view_delete(request, id):
     if request.method == "DELETE":
@@ -131,6 +135,7 @@ def sale_list_create (request):
             return JsonResponse(
                 {"sales": sales},
                 encoder= SaleEncoder,
+                status=200,
             )
         else:
             return JsonResponse({"message":"No Sales Found"}, status=400)
@@ -142,6 +147,7 @@ def sale_list_create (request):
         except AutomobileVO.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid Automobile Vin"},
+                status= 400,
             )
         try:
             salesperson = Salesperson.objects.get(id=content["salesperson"])
@@ -149,6 +155,7 @@ def sale_list_create (request):
         except Salesperson.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid Salesperson ID"},
+                status=400,
             )
         try:
             customer = Customer.objects.get(id=content["customer"])
@@ -156,6 +163,7 @@ def sale_list_create (request):
         except Customer.DoesNotExist:
             return JsonResponse(
                 {"message": "Invalid Customer ID"},
+                status=400,
             )
         sale = Sale.objects.create(**content)
         if sale:
@@ -168,7 +176,7 @@ def sale_list_create (request):
             return JsonResponse({"message":"Could Not Create Sale"}, status=400)
 
 
-# Joe may add more as a stretch goal
+# Joe: may add more as a stretch goal
 @require_http_methods(["DELETE"])
 def sale_delete_edit_view(request, id):
     if request.method == "DELETE":
@@ -201,4 +209,5 @@ def available_cars_update(request, id):
         car,
         encoder=AutomobileVoEncoder,
         safe=False,
+        status=200,
     )

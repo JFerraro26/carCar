@@ -22,9 +22,9 @@ def get_auto():
         for car in current_cars:
             current_car_list.append(car["vin"])
         if auto["vin"] not in current_car_list:
-            AutomobileVO.objects.update_or_create(
+            AutomobileVO.objects.create(
                 sold = auto["sold"],
-                defaults = {"vin": auto["vin"]},
+                vin = auto["vin"],
             )
 
 def poll():

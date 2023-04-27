@@ -4,10 +4,6 @@ function SalesPersonHistory() {
     const [sales, setSales] = useState([])
     const [salesData, setSaleData] = useState([])
     const [salespeople, setSalespeople] = useState([])
-    // console.log("sales:", salesData)
-
-    // const test = salesData.filter(obj => obj.salesperson.id === parseFloat("2"))
-    // console.log("testing:", test)
 
     const fetchSalesData = async () => {
         const response = await fetch("http://localhost:8090/api/sales/")
@@ -40,7 +36,13 @@ function SalesPersonHistory() {
 
     const handleSalespersonSelect = (event) => {
         const value = event.target.value;
-        const updatedSales = salesData.filter(obj => obj.salesperson.id === parseFloat(value))
+        var updatedSales
+        if (value === "all"){
+            updatedSales = salesData
+        }
+        else {
+            updatedSales = salesData.filter(obj => obj.salesperson.id === parseFloat(value))
+        }
         console.log("function", updatedSales)
         setSales(updatedSales)
 
@@ -50,7 +52,7 @@ function SalesPersonHistory() {
         <>
             <h1>SalesPersonHistory</h1>
             <select onChange={handleSalespersonSelect} required id="salesperson" name="salesperson"className="salesperson select">
-                <option>Select A Salesperson... </option>
+                <option value={"all"} key={"all"}> All </option>
                 {salespeople?.map(salesperson => {
                     return (
                         <option value={salesperson.id} key={salesperson.id}>

@@ -43,7 +43,6 @@ function SalesPersonHistory() {
         else {
             updatedSales = salesData.filter(obj => obj.salesperson.id === parseFloat(value))
         }
-        console.log("function", updatedSales)
         setSales(updatedSales)
 
     }

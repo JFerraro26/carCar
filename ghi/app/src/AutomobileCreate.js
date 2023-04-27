@@ -18,8 +18,6 @@ function AutomobileFormCreate() {
         };
         const response = await fetch(autoUrl, fetchConfig);
         if (response.ok) {
-            const newAuto = await response.json();
-            console.log("New:",newAuto);
             setModel("");
             setVin("");
             setYear("");

@@ -19,11 +19,9 @@ function SalesFormCreate() {
         const response = await fetch(saleUrl, fetchConfig);
         if (response.ok) {
             const newSale = await response.json();
-            console.log(newSale)
             const carData = {};
             carData.sold = true;
             const carId = newSale["automobile"].id;
-            console.log(carId)
             const carUrl = `http://localhost:8090/api/cars/${carId}/`
             const carFetchConfig = {
                 method: "put",
@@ -34,8 +32,6 @@ function SalesFormCreate() {
             }
             const carResponse = await fetch(carUrl, carFetchConfig);
             if (carResponse.ok) {
-                const stuff = await carResponse.json()
-                console.log(stuff)
                 const updateCars = cars.filter(object => object.id !== carId)
                 setCars(updateCars)
                 setCar("");

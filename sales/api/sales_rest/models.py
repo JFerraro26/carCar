@@ -42,4 +42,4 @@ class Sale(models.Model):
         related_name="sales",
         on_delete=models.CASCADE,
     )
-    price = models.IntegerField()
+    price = models.CharField(max_length=100)

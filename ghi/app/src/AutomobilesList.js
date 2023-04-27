@@ -64,7 +64,6 @@ function AutomobileList() {
                     {automobiles?.map(auto => {
                         return (
                             <tr key={auto.id}>
-                                {console.log(auto.sold)}
                                <td>{auto.vin}</td>
                                <td>{auto.color}</td>
                                <td>{auto.year}</td>

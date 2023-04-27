@@ -41,15 +41,6 @@ function Nav() {
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/customers/new">Add a Customer</NavLink>
               </li>
-              <li>
-                <NavLink className="nav-link" activeclassname="active" to="/technicians">Technicians</NavLink>
-              </li>
-              <li>
-                <NavLink className="nav-link" activeclassname="active" to="/technicians/create">Add Technician</NavLink>
-              </li>
-              <li>
-                <NavLink className="nav-link" activeclassname="active" to="/appointments/create">Create Appointment</NavLink>
-              </li>
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/sales">Sales</NavLink>
               </li>
@@ -59,12 +50,21 @@ function Nav() {
               <li className="nav-item">
                 <NavLink className="nav-link" aria-current="page" to="/sales/history">Salesperson History</NavLink>
               </li>
-            <li>
-              <NavLink className="nav-link" activeclassname="active" to="/appointments">Service Appointments</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" activeclassname="active" to="/service-history">Service History</NavLink>
-            </li>
+              <li>
+                <NavLink className="nav-link" activeclassname="active" to="/technicians">Technicians</NavLink>
+              </li>
+              <li>
+                <NavLink className="nav-link" activeclassname="active" to="/technicians/create">Add Technician</NavLink>
+              </li>
+              <li>
+                <NavLink className="nav-link" activeclassname="active" to="/appointments/create">Create Appointment</NavLink>
+              </li>
+              <li>
+                <NavLink className="nav-link" activeclassname="active" to="/appointments">Service Appointments</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" activeclassname="active" to="/service-history">Service History</NavLink>
+              </li>
           </ul>
         </div>
       </div>

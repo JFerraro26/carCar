@@ -20,7 +20,6 @@ function SalespeopleList() {
     }
 
     const[salespeople, setSalespeople] = useState([]);
-    console.log(salespeople)
 
     const fetchSalesPeopleData = async () => {
         const response = await fetch("http://localhost:8090/api/salespeople/")

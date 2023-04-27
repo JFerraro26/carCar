@@ -12,9 +12,6 @@ class AutomobileVoEncoder(ModelEncoder):
     properties = [
         "id",
         "vin",
-        "color",
-        "year",
-        "import_href",
     ]
     def get_extra_data(self, o):
         return {"sold": o.sold}
@@ -186,7 +183,6 @@ def sale_delete_edit_view(request, id):
 @require_http_methods("GET")
 def available_car_list(request):
     cars = AutomobileVO.objects.filter(sold=False)
-    print(cars)
     if cars:
         return JsonResponse(
             {"cars": cars},

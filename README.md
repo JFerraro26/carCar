@@ -48,7 +48,7 @@ This microservice has data within the Automobile model that gets polled from the
 - Method: 'POST'
 - URL: 'http://localhost:8100/api/manufacturers/'
 
-Creating and updating a manufacturer requires only the manufacturer's name.
+Creating a manufacturer requires only the manufacturer's name.
 
 **JSON body:**
 ```json
@@ -83,6 +83,48 @@ The list of manufacturers is a dictionary with the key "manufacturers" set to a 
       "name": "Daimler-Chrysler"
     }
   ]
+}
+```
+
+### *Edit Manufacturer*
+
+- Method: 'PUT'
+- URL: 'http://localhost:8100/api/manufacturers/:id'
+
+Updating a manufacturer requires only the manufacturer's name.
+
+**JSON body:**
+```json
+{
+  "name": "Chrysler"
+}
+```
+
+**Response**:
+```json
+{
+  "manufacturers": [
+    {
+      "href": "/api/manufacturers/1/",
+      "id": 1,
+      "name": "Daimler-Chrysler"
+    }
+  ]
+}
+```
+
+### *Delete Manufacturer*
+
+- Method: 'DELETE'
+- URL: 'http://localhost:8100/api/manufacturers/:id'
+
+Deleting a manufacturer.
+
+**Response**:
+```json
+{
+	"id": null,
+	"name": "Chryslr"
 }
 ```
 
@@ -180,6 +222,26 @@ Getting a list of vehicle models returns a list of the detail information with t
       }
     }
   ]
+}
+```
+### *Delete a Vehicle Model*
+
+- Method: 'DELETE'
+- URL: 'http://localhost:8100/api/models/:id/'
+
+Delete a specific vehicle model
+
+**RESPONSE:**
+```json
+{
+	"id": null,
+	"name": "Sebring",
+	"picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
+	"manufacturer": {
+		"href": "/api/manufacturers/5/",
+		"id": 5,
+		"name": "Chryslr"
+	}
 }
 ```
 
@@ -314,6 +376,45 @@ Getting a list of automobiles returns a dictionary with the key "autos" set to a
       "sold": false
     }
   ]
+}
+```
+
+### *Delete a specific Automobile*
+
+- Method: 'DELETE'
+- URL: 'http://localhost:8100/api/automobiles/:vin/'
+
+Delete a specific Automobile
+
+**Response**:
+```json
+{
+	"href": "/api/automobiles/3VWLL7AJ7EM433787/",
+	"id": null,
+	"color": "red",
+	"year": 2012,
+	"vin": "3VWLL7AJ7EM433787",
+	"model": {
+		"href": "/api/models/2/",
+		"id": 2,
+		"name": "Sebring",
+		"picture_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Chrysler_Sebring_front_20090302.jpg/320px-Chrysler_Sebring_front_20090302.jpg",
+		"manufacturer": {
+			"href": "/api/manufacturers/5/",
+			"id": 5,
+			"name": "Chryslr"
+		}
+	},
+	"sold": false
+}
+```
+
+**JSON body:**
+```json
+{
+  "color": "red",
+  "year": 2012,
+  "sold": true
 }
 ```
 
@@ -505,8 +606,14 @@ There is a *Sale* model that that has a one to many relationship with the *Autom
 |Update available car|PUT|http://localhost:8090/api/cars/:id|
 
 
-#### **List Salespeople:**
-GET request **RETURNS** JSON:
+### **List Salespeople:**
+
+- Method: 'GET'
+- URL: http://localhost:8090/api/salespeople/
+
+A list of salespeople.
+
+**RESPONSE**
 ```json
 {
 	"salespeople": [
@@ -526,8 +633,14 @@ GET request **RETURNS** JSON:
 }
 ```
 
-#### **Create a Salesperson:**
-POST request **INPUT** JSON:
+### **Create a Salesperson:**
+
+- Method: 'POST'
+- URL: http://localhost:8090/api/salespeople/
+
+Create a salesperson.
+
+**JSON body**
 ```json
 {
 		"first_name": "I",
@@ -535,7 +648,7 @@ POST request **INPUT** JSON:
 		"employee_id": "aTest"
 }
 ```
-POST request **RETURNS** JSON:
+**RESPONSE**
 ```json
 {
 	"id": 1,
@@ -544,22 +657,33 @@ POST request **RETURNS** JSON:
 	"employee_id": "aTest"
 }
 ```
-#### **Delete a Specific Salesperson:**
-DELETE request **RETURNS** JSON:
-- on successful deletion (status=200)
+### **Delete Salesperson:**
+
+- Method: 'DELETE'
+- URL: http://localhost:8090/api/salespeople/:id
+
+Delete a specific salesperson.
+
+**RESPONSE (status=200)**
 ```json
 {
 	"message": "deleted"
 }
 ```
-- else (status=400)
+**RESPONSE (status=400)**
 ```json
 {
 	"message": "Saleperson Object not present, Unable to delete"
 }
 ```
-#### **List Customer:**
-GET request **RETURNS** JSON:
+### **List Customers:**
+
+- Method: 'GET'
+- URL: http://localhost:8090/api/customers/
+
+A list of customers.
+
+**RESPONSE**
 ```json
 {
 	"customers": [
@@ -580,8 +704,14 @@ GET request **RETURNS** JSON:
 	]
 }
 ```
-#### **Create a Customer:**
-POST request **INPUT** JSON:
+### **Create Customer:**
+
+- Method: 'POST'
+- URL: http://localhost:8090/api/customers/
+
+Create a customer
+
+**JSON body**
 ```json
 {
 	"first_name": "Bob",
@@ -590,7 +720,7 @@ POST request **INPUT** JSON:
 	"phone_number": "9999999979"
 }
 ```
-POST request **RETURNS** JSON:
+**RESPONSE**
 ```json
 {
 	"id": 1,
@@ -600,22 +730,33 @@ POST request **RETURNS** JSON:
 	"phone_number": "9999999979"
 }
 ```
-#### **Delete a specific customer:**
-DELETE request **RETURNS** JSON:
-- on successful deletion (status=200)
+### **Delete Customer:**
+
+- Method: 'DELETE'
+- URL: http://localhost:8090/api/customers/:id
+
+Delete a specific customer.
+
+**RESPONSE (status=200)**
 ```json
 {
 	"message": "deleted"
 }
 ```
-- else (status=400)
+**RESPONSE (status=400)**
 ```json
 {
 	"message": "Customer Object not present, Unable to delete"
 }
 ```
-#### **List Sales**
-GET request **RETURNS** JSON:
+### **List Sales:**
+
+- Method: 'GET'
+- URL: http://localhost:8090/api/sales/
+
+A list of sales.
+
+**RESPONSE**
 ```json
 {
 	"sales": [
@@ -644,8 +785,12 @@ GET request **RETURNS** JSON:
 	]
 }
 ```
-#### **Create a Sale:**
-POST request **INPUT** JSON:
+### **Create Sale:**
+
+- Method: 'POST'
+- URL: http://localhost:8090/api/sales/
+
+**JSON body**
 ```json
 {
 	"automobile": "1HGCT2B88DA000025",
@@ -654,7 +799,7 @@ POST request **INPUT** JSON:
 	"price": 200
 }
 ```
-POST request **RETURNS** JSON:
+**RESPONSE**
 ```json
 {
 	"id": 1,
@@ -679,24 +824,36 @@ POST request **RETURNS** JSON:
 	"price": 200
 }
 ```
-- one note: on automobile updating to `sold: true` is handled through the front end using fetch requests.  So when testing in something, in a program like insomnia the `sold` may be `true` or `false`
-#### **Delete a Sale:**
-DELETE request **RETURNS** JSON:
-- on successful deletion (status=200)
+- **NOTE:** The automobile updating to `sold: true` is handled through the front end using fetch requests.  So when testing in something, in a program like insomnia the `sold` value may be `true` or `false`.
+
+
+### **Delete a Sale:**
+
+- Method: 'DELETE'
+- URL: http://localhost:8090/api/sales/:id
+
+Delete a specific sale.
+
+**RESPONSE (status=200)**
 ```json
 {
 	"message": "deleted"
 }
 ```
-- else (status=400)
+**RESPONSE (status=400)**
 ```json
 {
 	"message": "Sale Object not present, Unable to delete"
 }
 ```
-#### **List Available Cars:**
-filters AutomobileVO objects by sold: False, GET request **RETURNS** JSON:
-- If cars available (status=200)
+### **List Available Cars:**
+
+- Method: 'GET'
+- URL: http://localhost:8090/api/cars/
+
+A filtered list of AutomobileVO objects by sold: False.
+
+**RESPONSE (status=200)**
 ```json
 {
 	"cars": [
@@ -708,20 +865,27 @@ filters AutomobileVO objects by sold: False, GET request **RETURNS** JSON:
 	]
 }
 ```
-- else (status=400)
+**RESPONSE (status=400)**
 ```json
 {
 	"message": "No Available Cars Found"
 }
 ```
-#### **Update Available Car:**
-updates a specific AutomobileVO object to sold: True on sale submission, PUT **INPUT** returns JSON:
+
+### **Update Available Car:**
+
+- Method: 'GET'
+- URL: http://localhost:8090/api/cars/:id/
+
+Updates a specific AutomobileVO object to sold: True on sale submission.
+
+**JSON body**
 ```json
 {
 	"sold": true
 }
 ```
-PUT **RETURN** returns JSON:
+**RESPONSE**
 ```json
 {
 	"id": 2,

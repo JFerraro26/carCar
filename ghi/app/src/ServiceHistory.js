@@ -9,8 +9,14 @@ function ServiceHistory() {
   useEffect(() => {
     const fetchAppointments = async () => {
       const response = await fetch('http://localhost:8080/api/appointments/all/');
-      const data = await response.json();
-      setAppointments(data.appointments);
+      if (response.ok) {
+        const data = await response.json();
+        setAppointments(data.appointments);
+      }
+      else {
+        console.error(response)
+      }
+
     };
     fetchAppointments();
   }, []);

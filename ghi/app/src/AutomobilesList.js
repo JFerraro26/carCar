@@ -46,21 +46,10 @@ function AutomobileList() {
                         <th>Model</th>
                         <th>Manufacturer</th>
                         <th>Sold</th>
-                        <th>Add/Delete</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>New Automobile</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>N/A</td>
-                        <td>
-                        <Link to="/automobile/new" className='btn btn-outline-success'>Add Automobile</Link>
-                        </td>
-                    </tr>
                     {automobiles?.map(auto => {
                         return (
                             <tr key={auto.id}>

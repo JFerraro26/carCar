@@ -41,16 +41,10 @@ function ManufacturersList() {
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Add/Delete</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>New Manufacturer</td>
-                        <td>
-                        <Link to="/manufacturer/new" className='btn btn-outline-success'>Add Manufacturer</Link>
-                        </td>
-                    </tr>
                     {manufacturers?.map(man => {
                         return (
                             <tr key={man.id}>

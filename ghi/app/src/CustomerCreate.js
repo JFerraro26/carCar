@@ -18,7 +18,6 @@ function CustomerCreate() {
         };
         const response = await fetch(customerUrl, fetchConfig);
         if (response.ok ) {
-            const newCustomer = await response.json();
             setFirstName("");
             setLastName("");
             setAddress("");

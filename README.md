@@ -470,23 +470,23 @@ If an appointment is still active in the service appointments list, this page wi
 ___
 ## Sales microservice
 
-There are 4 models in the sales microservice a Salesperson model, a Cutomer model, a AutomobileVO model, and, the reason the microservice was created, a Sales model.  The sales maicroservice polls data from the inventory microservice
+There are 4 models in the sales microservice a *Salesperson* model, a *Cutomer* model, an *AutomobileVO* model, and, the reason the microservice was created, a *Sales* model.  The sales maicroservice polls data from the inventory microservice
 
 ### Salesperson model
 
-The Salesperson model takes in  a first name, last name and a unique employee ID.
+The *Salesperson* model contains  a first name, last name and a unique employee ID fields.
 
 ### Customer model
 
-The Customer model takes in a first name, last name, address and phone number.
+The *Customer* model contains a first name, last name, address and phone number fields.
 
 ### AutomobileVO model
 
-The AutomobileVO model recieves the automobile data from poller.py, pollar.py is polling for data from the Inventory microservice.  The pollar.py file checks if a VIN number that is being polled is already in the AutomobileVO model before creating a new AutomobileVO object.
+The *AutomobileVO* model contains a vin and sold fields.  It recieves the automobile data from poller.py, pollar.py is polling for data from the Inventory microservice.  The pollar.py file checks if a VIN number that is being polled is already in the *AutomobileVO* model before creating a new *AutomobileVO* object.
 
 ### Sale model
 
-There is a Sale model that that has a one to many relationship with the AutomobileVO, Salesperson, and Customer models.  It also contains the price that the car sold for.
+There is a *Sale* model that that has a one to many relationship with the *AutomobileVO*, *Salesperson*, and *Customer* models.  It also contains a price field.
 
 ## Sales API's
 
@@ -504,8 +504,10 @@ There is a Sale model that that has a one to many relationship with the Automobi
 |List available cars|GET|http://localhost:8090/api/cars/|
 |Update available car|PUT|http://localhost:8090/api/cars/:id|
 
-**List Salespeople:** GET request **RETURNS** JSON:
-```
+
+#### **List Salespeople:**
+GET request **RETURNS** JSON:
+```json
 {
 	"salespeople": [
 		{
@@ -523,29 +525,42 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	]
 }
 ```
-**Create a Salesperson:** POST request **INPUT** JSON:
-```
+
+#### **Create a Salesperson:**
+POST request **INPUT** JSON:
+```json
 {
 		"first_name": "I",
 		"last_name": "am",
 		"employee_id": "aTest"
 }
 ```
-**Delete a Specific Salesperson:** DELETE request **RETURNS** JSON:
-- on successful deletion (status=200)
+POST request **RETURNS** JSON:
+```json
+{
+	"id": 1,
+	"first_name": "I",
+	"last_name": "am",
+	"employee_id": "aTest"
+}
 ```
+#### **Delete a Specific Salesperson:**
+DELETE request **RETURNS** JSON:
+- on successful deletion (status=200)
+```json
 {
 	"message": "deleted"
 }
 ```
 - else (status=400)
-```
+```json
 {
 	"message": "Saleperson Object not present, Unable to delete"
 }
 ```
-**List Customer:** GET request **RETURNS** JSON:
-```
+#### **List Customer:**
+GET request **RETURNS** JSON:
+```json
 {
 	"customers": [
 		{
@@ -565,8 +580,9 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	]
 }
 ```
-**Create a Customer:** POST request **INPUT** JSON:
-```
+#### **Create a Customer:**
+POST request **INPUT** JSON:
+```json
 {
 	"first_name": "Bob",
 	"last_name": "WeHadABabyItsABoy",
@@ -574,21 +590,33 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"phone_number": "9999999979"
 }
 ```
-**Delete a specific customer:** DELETE request **RETURNS** JSON:
-- on successful deletion (status=200)
+POST request **RETURNS** JSON:
+```json
+{
+	"id": 1,
+	"first_name": "Bob",
+	"last_name": "WeHadABabyItsABoy",
+	"address": "1234 Fake St.",
+	"phone_number": "9999999979"
+}
 ```
+#### **Delete a specific customer:**
+DELETE request **RETURNS** JSON:
+- on successful deletion (status=200)
+```json
 {
 	"message": "deleted"
 }
 ```
 - else (status=400)
-```
+```json
 {
 	"message": "Customer Object not present, Unable to delete"
 }
 ```
-**List Sales** GET request **RETURNS** JSON:
-```
+#### **List Sales**
+GET request **RETURNS** JSON:
+```json
 {
 	"sales": [
 		{
@@ -616,8 +644,9 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	]
 }
 ```
-**Create a Sale:** POST request **INPUT** JSON:
-```
+#### **Create a Sale:**
+POST request **INPUT** JSON:
+```json
 {
 	"automobile": "1HGCT2B88DA000025",
 	"salesperson": "2",
@@ -625,22 +654,50 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"price": 200
 }
 ```
-**Delete a Sale:** DELETE request **RETURNS** JSON:
-- on successful deletion
+POST request **RETURNS** JSON:
+```json
+{
+	"id": 1,
+	"automobile": {
+		"id": 2,
+		"vin": "1HGCT2B88DA000025",
+		"sold": false
+	},
+	"salesperson": {
+		"id": 2,
+		"first_name": "Dan",
+		"last_name": "Bob",
+		"employee_id": "Dbab"
+	},
+	"customer": {
+		"id": 2,
+		"first_name": "ada",
+		"last_name": "earrrrrrrrrrrr",
+		"address": "adaf",
+		"phone_number": "1234"
+	},
+	"price": 200
+}
 ```
+- one note: on automobile updating to `sold: true` is handled through the front end using fetch requests.  So when testing in something, in a program like insomnia the `sold` may be `true` or `false`
+#### **Delete a Sale:**
+DELETE request **RETURNS** JSON:
+- on successful deletion (status=200)
+```json
 {
 	"message": "deleted"
 }
 ```
-- else
-```
+- else (status=400)
+```json
 {
 	"message": "Sale Object not present, Unable to delete"
 }
 ```
-**List Available Cars:** filters AutomobileVO objects by sold: False, GET request **RETURNS** JSON:
+#### **List Available Cars:**
+filters AutomobileVO objects by sold: False, GET request **RETURNS** JSON:
 - If cars available (status=200)
-```
+```json
 {
 	"cars": [
 		{
@@ -652,14 +709,23 @@ There is a Sale model that that has a one to many relationship with the Automobi
 }
 ```
 - else (status=400)
-```
+```json
 {
 	"message": "No Available Cars Found"
 }
 ```
-**Update Available Car:** updates a specific AutomobileVO object to sold: True on sale submission, PUT **INPUT** returns JSON:
-```
+#### **Update Available Car:**
+updates a specific AutomobileVO object to sold: True on sale submission, PUT **INPUT** returns JSON:
+```json
 {
+	"sold": true
+}
+```
+PUT **RETURN** returns JSON:
+```json
+{
+	"id": 2,
+	"vin": "1HGCT2B88DA000025",
 	"sold": true
 }
 ```

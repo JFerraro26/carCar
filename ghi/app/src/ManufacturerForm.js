@@ -15,7 +15,6 @@ function ManufacturerFormCreate(){
         };
         const response = await fetch(manufacturerUrl, fetchConfig);
         if (response.ok ) {
-            const newManufacturer = await response.json();
             setName("");
         }
         else{

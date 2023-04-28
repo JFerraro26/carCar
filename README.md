@@ -61,6 +61,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 |List available cars|GET|http://localhost:8090/api/cars/|
 |Update available car|PUT|http://localhost:8090/api/cars/:id|
 
+
 **List Salespeople:** GET request **RETURNS** JSON:
 ```
 {
@@ -80,6 +81,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	]
 }
 ```
+
 **Create a Salesperson:** POST request **INPUT** JSON:
 ```
 {

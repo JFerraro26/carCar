@@ -61,7 +61,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 |List available cars|GET|http://localhost:8090/api/cars/|
 |Update available car|PUT|http://localhost:8090/api/cars/:id|
 
-**List Salespeople:** GET request returns JSON:
+**List Salespeople:** GET request **RETURNS** JSON:
 ```
 {
 	"salespeople": [
@@ -80,7 +80,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	]
 }
 ```
-**Create a Salesperson:** POST request input JSON:
+**Create a Salesperson:** POST request **INPUT** JSON:
 ```
 {
 		"first_name": "I",
@@ -88,7 +88,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 		"employee_id": "aTest"
 }
 ```
-**Delete a Specific Salesperson:** DELETE request returns JSON:
+**Delete a Specific Salesperson:** DELETE request **RETURNS** JSON:
 - on successful deletion (status=200)
 ```
 {
@@ -101,7 +101,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"message": "Saleperson Object not present, Unable to delete"
 }
 ```
-**List Customer:** GET request returns JSON:
+**List Customer:** GET request **RETURNS** JSON:
 ```
 {
 	"customers": [
@@ -122,7 +122,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	]
 }
 ```
-**Create a Customer:** POST request input JSON:
+**Create a Customer:** POST request **INPUT** JSON:
 ```
 {
 	"first_name": "Bob",
@@ -131,7 +131,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"phone_number": "9999999979"
 }
 ```
-**Delete a specific customer:** DELETE request returns JSON:
+**Delete a specific customer:** DELETE request **RETURNS** JSON:
 - on successful deletion (status=200)
 ```
 {
@@ -144,7 +144,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"message": "Customer Object not present, Unable to delete"
 }
 ```
-**List Sales** GET request returns JSON:
+**List Sales** GET request **RETURNS** JSON:
 ```
 {
 	"sales": [
@@ -173,7 +173,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	]
 }
 ```
-**Create a Sale:** POST request input JSON:
+**Create a Sale:** POST request **INPUT** JSON:
 ```
 {
 	"automobile": "1HGCT2B88DA000025",
@@ -182,7 +182,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"price": 200
 }
 ```
-**Delete a Sale:** DELETE request returns JSON:
+**Delete a Sale:** DELETE request **RETURNS** JSON:
 - on successful deletion
 ```
 {
@@ -195,7 +195,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"message": "Sale Object not present, Unable to delete"
 }
 ```
-**List Available Cars:** filters AutomobileVO objects by sold: False, GET request returns JSON:
+**List Available Cars:** filters AutomobileVO objects by sold: False, GET request **RETURNS** JSON:
 - If cars available (status=200)
 ```
 {
@@ -214,9 +214,11 @@ There is a Sale model that that has a one to many relationship with the Automobi
 	"message": "No Available Cars Found"
 }
 ```
-**Update Available Car:** updates a specific AutomobileVO object to sold: True on sale submission, PUT request returns JSON:
+**Update Available Car:** updates a specific AutomobileVO object to sold: True on sale submission, PUT **INPUT** returns JSON:
 ```
 {
 	"sold": true
 }
 ```
+
+**All list GET requests will be status=400 if there is no OBJECT in the MODEL**

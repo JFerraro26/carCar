@@ -31,19 +31,19 @@ There are 4 models in the sales microservice a Salesperson model, a Cutomer mode
 
 ### Salesperson model
 
-The Salesperson model takes in  a first name, last name and a unique employee ID.
+The Salesperson model contains  a first name, last name and a unique employee ID fields.
 
 ### Customer model
 
-The Customer model takes in a first name, last name, address and phone number.
+The Customer model contains a first name, last name, address and phone number fields.
 
 ### AutomobileVO model
 
-The AutomobileVO model recieves the automobile data from poller.py, pollar.py is polling for data from the Inventory microservice.  The pollar.py file checks if a VIN number that is being polled is already in the AutomobileVO model before creating a new AutomobileVO object.
+The AutomobileVO model contains a vin and sold fields.  It recieves the automobile data from poller.py, pollar.py is polling for data from the Inventory microservice.  The pollar.py file checks if a VIN number that is being polled is already in the AutomobileVO model before creating a new AutomobileVO object.
 
 ### Sale model
 
-There is a Sale model that that has a one to many relationship with the AutomobileVO, Salesperson, and Customer models.  It also contains the price that the car sold for.
+There is a Sale model that that has a one to many relationship with the AutomobileVO, Salesperson, and Customer models.  It also contains a price field.
 
 ## Sales API's
 

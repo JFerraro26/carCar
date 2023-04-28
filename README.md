@@ -447,15 +447,65 @@ One thing to note on this list is that if the VIN of a vehicle matches the VIN f
 
 ### *Set appointment status to canceled*
 - Method: 'PUT'
-- URL: 'http://localhost:8080/api/appointments/:id/cancel'
+- URL: 'http://localhost:8080/api/appointments/:id/cancel/'
 
 This will set an appointment's status to *Canceled*, therefore removing it from the list of appointments.
 
+**JSON body:**
+```json
+{
+  "status": "Canceled"
+}
+```
+
+**Response**:
+```json
+{
+	"id": 1,
+	"vin": "5NPEU46F26H025085",
+	"customer": "Marvin Oldboy",
+	"date_time": "2023-05-01T14:30:00+00:00",
+	"reason": "Tire Change",
+	"technician": {
+		"first_name": "John",
+		"last_name": "Doe",
+		"employee_id": "jdoe",
+		"id": 1
+	},
+	"status": "Canceled"
+}
+```
+
 ### *Set appointment status to finished*
 - Method: 'PUT'
-- URL: 'http://localhost:8080/api/appointments/:id/finish'
+- URL: 'http://localhost:8080/api/appointments/:id/finish/'
 
 This will set an appointment's status to *Finished*, therefore removing it from the list of appointments.
+
+**JSON body:**
+```json
+{
+  "status": "Finished"
+}
+```
+
+**Response**:
+```json
+{
+	"id": 1,
+	"vin": "5NPEU46F26H025085",
+	"customer": "Marvin Oldboy",
+	"date_time": "2023-05-01T14:30:00+00:00",
+	"reason": "Tire Change",
+	"technician": {
+		"first_name": "John",
+		"last_name": "Doe",
+		"employee_id": "jdoe",
+		"id": 1
+	},
+	"status": "Finished"
+}
+```
 
 ## AutomobileVO
 This model polls data from the Inventory microservice's Automobile model, specifically the VIN field.

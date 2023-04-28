@@ -1,6 +1,17 @@
 import React, { useState, useEffect } from 'react';
 
 
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString();
+};
+
+const formatTime = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString();
+};
+
+
 function AppointmentList() {
   const [appointments, setAppointments] = useState([]);
 
@@ -78,7 +89,8 @@ function AppointmentList() {
           <tr>
             <th>VIN</th>
             <th>Customer Name</th>
-            <th>Date & Time</th>
+            <th>Date</th>
+            <th>Time</th>
             <th>Technician</th>
             <th>Reason</th>
             <th>VIP</th>
@@ -91,7 +103,8 @@ function AppointmentList() {
               <tr key={appointment.id}>
                 <td>{appointment.vin} {appointment.vin?.import_href ? '(Purchased from dealership)' : ''}</td>
                 <td>{appointment.customer}</td>
-                <td>{appointment.date_time}</td>
+                <td>{formatDate(appointment.date_time)}</td>
+                <td>{formatTime(appointment.date_time)}</td>
                 <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
                 <td>{appointment.reason}</td>
                 <td>{appointment.vip ? 'Yes' : 'No'}</td>

@@ -12,8 +12,12 @@ function CreateAppointment({ onAppointmentCreated }) {
   useEffect(() => {
     const fetchTechnicians = async () => {
       const response = await fetch('http://localhost:8080/api/technicians/');
-      const data = await response.json();
-      setTechnicians(data);
+      if (response.ok) {
+        const data = await response.json();
+        setTechnicians(data);
+      } else {
+        console.error(response);
+      }
     };
     fetchTechnicians();
   }, []);

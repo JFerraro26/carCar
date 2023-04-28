@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
 
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString();
+};
+
+const formatTime = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleTimeString();
+};
+
+
 function ServiceHistory() {
   const [appointments, setAppointments] = useState([]);
   const [searchValue, setSearchValue] = useState('');
 
-
   useEffect(() => {
     const fetchAppointments = async () => {
       const response = await fetch('http://localhost:8080/api/appointments/all/');
-      const data = await response.json();
-      setAppointments(data.appointments);
+      if (response.ok) {
+        const data = await response.json();
+        setAppointments(data.appointments);
+      } else {
+        console.error(response)
+      }
     };
     fetchAppointments();
   }, []);
@@ -25,7 +39,6 @@ function ServiceHistory() {
     setSearchValue(event.target.value);
   }
 
-
   return (
     <div className="container">
       <h2 className="my-4">Service History</h2>
@@ -39,7 +52,8 @@ function ServiceHistory() {
             <th>VIN</th>
             <th>Purchased</th>
             <th>Customer Name</th>
-            <th>Date & Time</th>
+            <th>Date</th>
+            <th>Time</th>
             <th>Technician</th>
             <th>Reason</th>
             <th>Status</th>
@@ -51,7 +65,8 @@ function ServiceHistory() {
               <td>{appointment.vin}</td>
               <td>{appointment.vin.import_href ? 'Yes' : 'No'}</td>
               <td>{appointment.customer}</td>
-              <td>{appointment.date_time}</td>
+              <td>{formatDate(appointment.date_time)}</td>
+              <td>{formatTime(appointment.date_time)}</td>
               <td>{appointment.technician.first_name} {appointment.technician.last_name}</td>
               <td>{appointment.reason}</td>
               <td>{appointment.status || "Created"}</td>

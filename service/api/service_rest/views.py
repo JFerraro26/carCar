@@ -157,7 +157,11 @@ def cancel_appointment(request, id):
             return JsonResponse({"error": "Appointment not found"}, status=404)
         appointment.status = "Cancelled"
         appointment.save()
-        return JsonResponse(AppointmentEncoder().encode(appointment), safe=False)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
     else:
         return JsonResponse({"error": "Bad request"}, status=400)
 
@@ -170,6 +174,10 @@ def finish_appointment(request, id):
             return JsonResponse({"error": "Appointment not found"}, status=404)
         appointment.status = "Finished"
         appointment.save()
-        return JsonResponse(AppointmentEncoder().encode(appointment), safe=False)
+        return JsonResponse(
+            appointment,
+            encoder=AppointmentEncoder,
+            safe=False,
+        )
     else:
         return JsonResponse({"error": "Bad request"}, status=400)

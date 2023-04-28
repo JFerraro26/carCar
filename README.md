@@ -83,7 +83,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 ```
 
 **Create a Salesperson:** POST request **INPUT** JSON:
-```
+```json
 {
 		"first_name": "I",
 		"last_name": "am",
@@ -92,19 +92,19 @@ There is a Sale model that that has a one to many relationship with the Automobi
 ```
 **Delete a Specific Salesperson:** DELETE request **RETURNS** JSON:
 - on successful deletion (status=200)
-```
+```json
 {
 	"message": "deleted"
 }
 ```
 - else (status=400)
-```
+```json
 {
 	"message": "Saleperson Object not present, Unable to delete"
 }
 ```
 **List Customer:** GET request **RETURNS** JSON:
-```
+```json
 {
 	"customers": [
 		{
@@ -125,7 +125,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 }
 ```
 **Create a Customer:** POST request **INPUT** JSON:
-```
+```json
 {
 	"first_name": "Bob",
 	"last_name": "WeHadABabyItsABoy",
@@ -135,19 +135,19 @@ There is a Sale model that that has a one to many relationship with the Automobi
 ```
 **Delete a specific customer:** DELETE request **RETURNS** JSON:
 - on successful deletion (status=200)
-```
+```json
 {
 	"message": "deleted"
 }
 ```
 - else (status=400)
-```
+```json
 {
 	"message": "Customer Object not present, Unable to delete"
 }
 ```
 **List Sales** GET request **RETURNS** JSON:
-```
+```json
 {
 	"sales": [
 		{
@@ -176,7 +176,7 @@ There is a Sale model that that has a one to many relationship with the Automobi
 }
 ```
 **Create a Sale:** POST request **INPUT** JSON:
-```
+```json
 {
 	"automobile": "1HGCT2B88DA000025",
 	"salesperson": "2",
@@ -186,20 +186,20 @@ There is a Sale model that that has a one to many relationship with the Automobi
 ```
 **Delete a Sale:** DELETE request **RETURNS** JSON:
 - on successful deletion
-```
+```json
 {
 	"message": "deleted"
 }
 ```
 - else
-```
+```json
 {
 	"message": "Sale Object not present, Unable to delete"
 }
 ```
 **List Available Cars:** filters AutomobileVO objects by sold: False, GET request **RETURNS** JSON:
 - If cars available (status=200)
-```
+```json
 {
 	"cars": [
 		{
@@ -211,13 +211,13 @@ There is a Sale model that that has a one to many relationship with the Automobi
 }
 ```
 - else (status=400)
-```
+```json
 {
 	"message": "No Available Cars Found"
 }
 ```
 **Update Available Car:** updates a specific AutomobileVO object to sold: True on sale submission, PUT **INPUT** returns JSON:
-```
+```json
 {
 	"sold": true
 }

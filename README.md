@@ -1,46 +1,64 @@
 # CarCar
 
-**Team**:
+### **Team**:
 
-* Miguel Robles - Service
+* Miguel Robles - Service microservice
 * Joseph Ferraro - Sales microservice
 
-## How to Run this Project
 
-1. Download and install Docker Desktop
-2. Open Terminal
-3. Fork and Clone Project-Beta from git
-4. Run: `docker volume create beta-data`
-5. Run: `docker-compose build`
-6. Run: `docker-compose up`
-7. Open a browser of choice.  Recomended is Google Chrome
-8. Go to http://localhost:3000/ in browser
+### **How to Run this Project**
 
-## Design
+1. Download and install **Docker Desktop** [here](https://www.docker.com/products/docker-desktop/)
+2. Open Terminal and choose the directory you will be working on by running this command:
+	> `cd directory_name` <small><br>(change "directory_name" to your respective directory)</small>
+3. Fork and Clone Project-Beta from Git
+	> `git clone paste_copied_HTTPS_URL_here`
+4. Change your working directory to the directory you just cloned
+	> `cd project_name`
+5. Create the volume in Docker
+	> `docker volume create beta-data`
+6. Build the images on Docker
+	> `docker-compose build`
+7. Run the container from the images you just created
+	> `docker-compose up`
+	- <small>At this point you should see all 7 container running on Docker Desktop</small>
+8. Open a browser of choice.  Google Chrome is *recommended*.
+9. Head over to http://localhost:3000/ in your browser to start browsing through the website!
+	- This URL will take you to the homepage of our project, CarCar!
+		<details>
+		<summary>This is what you should see</summary>
+
+		![Homepage](homepage.png)
+		</details>
+
+
+## **Design**
 
 An applicaton designed to help car dealerships keep track of their available invintory, sales, and services.
 
 ![Design](ReadmeDesign.jpg)
 ___
-## **Inventory microservice**
+
+
+# **Inventory microservice**
 
 There are 3 models in this microservice:
-- Manufacturer
-- VehicleModel
-- Automobile
+- `Manufacturer`
+- `VehicleModel`
+- `Automobile`
 
 This microservice has data within the Automobile model that gets polled from the Service and Sales microservices for use
 
 ## Inventory APIs
 
-### **Manufacturers**
+### Manufacturers
 
-|Action|Method|URL|
-|-|-|-|
-|List manufacturers|GET|http://localhost:8100/api/manufacturers/|
-|Create a manufacturer|POST|http://localhost:8100/api/manufacturers/|
-|Get a specific manufacturer|GET|http://localhost:8100/api/manufacturers/:id/|
-|Update a specific manufacturer|PUT|http://localhost:8100/api/manufacturers/:id/|
+|Action                        |Method|URL                                         |
+|------------------------------|------|--------------------------------------------|
+|List manufacturers            |GET   |http://localhost:8100/api/manufacturers/    |
+|Create a manufacturer         |POST  |http://localhost:8100/api/manufacturers/    |
+|Get a specific manufacturer   |GET   |http://localhost:8100/api/manufacturers/:id/|
+|Update a specific manufacturer|PUT   |http://localhost:8100/api/manufacturers/:id/|
 |Delete a specific manufacturer|DELETE|http://localhost:8100/api/manufacturers/:id/|
 
 ### *Create a Manufacturer*
@@ -130,12 +148,12 @@ Deleting a manufacturer.
 
 ### **Vehicle Models**
 
-|Action|Method|URL|
-|-|-|-|
-|List vehicle models|GET|http://localhost:8100/api/models/|
-|Create a vehicle model|POST|http://localhost:8100/api/models/|
-|Get a specific vehicle model|GET|http://localhost:8100/api/models/:id/|
-|Update a specific vehicle model|PUT|http://localhost:8100/api/models/:id/|
+|Action                         |Method|URL                                  |
+|-------------------------------|------|-------------------------------------|
+|List vehicle models            |GET   |http://localhost:8100/api/models/    |
+|Create a vehicle model         |POST  |http://localhost:8100/api/models/    |
+|Get a specific vehicle model   |GET   |http://localhost:8100/api/models/:id/|
+|Update a specific vehicle model|PUT   |http://localhost:8100/api/models/:id/|
 |Delete a specific vehicle model|DELETE|http://localhost:8100/api/models/:id/|
 
 ### *Create a Vehicle Model*
@@ -247,12 +265,12 @@ Delete a specific vehicle model
 
 ### **Automobiles**
 
-|Action|Method|URL|
-|-|-|-|
-|List automobiles|GET|http://localhost:8100/api/automobiles/|
-|Create an automobile|POST|http://localhost:8100/api/automobiles/|
-|Get a specific automobile|GET|http://localhost:8100/api/automobiles/:vin/|
-|Update a specific automobile|PUT|http://localhost:8100/api/automobiles/:vin/|
+|Action                      |Method|URL                                        |
+|----------------------------|------|-------------------------------------------|
+|List automobiles            |GET   |http://localhost:8100/api/automobiles/     |
+|Create an automobile        |POST  |http://localhost:8100/api/automobiles/     |
+|Get a specific automobile   |GET   |http://localhost:8100/api/automobiles/:vin/|
+|Update a specific automobile|PUT   |http://localhost:8100/api/automobiles/:vin/|
 |Delete a specific automobile|DELETE|http://localhost:8100/api/automobiles/:vin/|
 
 ### *Create an Automobile*
@@ -419,27 +437,29 @@ Delete a specific Automobile
 ```
 
 ___
+
+
 ## **Service microservice**
 
 There are 3 models in this microservice:
-- Technician
-- AutomobileVO
-- Appointment
+- `Technician`
+- `AutomobileVO`
+- `Appointment`
 
 We poll data from the *Automobile* model within the **Inventory microservice** to use in our *AutomobileVO* model in this microservice.
 
 ## *Service APIs*
 
-|Action|Method|URL|
-|-|-|-|
-|List technicians|GET|http://localhost:8080/api/technicians/|
-|Create a technician|POST|http://localhost:8080/api/technicians/|
-|Delete a specific technician|DELETE|http://localhost:8080/api/technicians/:id|
-|List appointments|GET|http://localhost:8080/api/appointments/|
-|Create an appointment|POST|http://localhost:8080/api/appointments/|
-|Delete an appointment|DELETE|http://localhost:8080/api/appointments/:id|
-|Set appointment status to canceled|PUT|http://localhost:8080/api/appointments/:id/cancel|
-|Set appointment status to finished|PUT|http://localhost:8080/api/appointments/:id/finish|
+|Action                            |Method|URL                                              |
+|----------------------------------|------|-------------------------------------------------|
+|List technicians                  |GET   |http://localhost:8080/api/technicians/           |
+|Create a technician               |POST  |http://localhost:8080/api/technicians/           |
+|Delete a specific technician      |DELETE|http://localhost:8080/api/technicians/:id        |
+|List appointments                 |GET   |http://localhost:8080/api/appointments/          |
+|Create an appointment             |POST  |http://localhost:8080/api/appointments/          |
+|Delete an appointment             |DELETE|http://localhost:8080/api/appointments/:id       |
+|Set appointment status to canceled|PUT   |http://localhost:8080/api/appointments/:id/cancel|
+|Set appointment status to finished|PUT   |http://localhost:8080/api/appointments/:id/finish|
 
 ## Technicians
 This model stores data on the technicians. The API endpoints here are to view the list of technicians and the form to create a new technician and add it to the list.
@@ -641,20 +661,19 @@ There is a *Sale* model that that has a one to many relationship with the *Autom
 
 ## Sales API's
 
-|Action|Method|URL|
-|----------|----------|----------|
-|List salespeople|GET|http://localhost:8090/api/salespeople/|
-|Create a salesperson|POST|http://localhost:8090/api/salespeople/|
+|Action                       |Method|URL                                      |
+|-----------------------------|------|-----------------------------------------|
+|List salespeople             |GET   |http://localhost:8090/api/salespeople/   |
+|Create a salesperson         |POST  |http://localhost:8090/api/salespeople/   |
 |Delete a specific salespeople|DELETE|http://localhost:8090/api/salespeople/:id|
-|List customer|GET|http://localhost:8090/api/customers/|
-|Create a customer|POST|http://localhost:8090/api/customers/|
-|Delete a specific customer|DELETE|http://localhost:8090/api/customers/:id|
-|List sales|GET|http://localhost:8090/api/sales/|
-|Create a sale|POST|http://localhost:8090/api/sales/|
-|Delete a sale|DELETE|http://localhost:8090/api/sales/:id|
-|List available cars|GET|http://localhost:8090/api/cars/|
-|Update available car|PUT|http://localhost:8090/api/cars/:id|
-
+|List customer                |GET   |http://localhost:8090/api/customers/     |
+|Create a customer            |POST  |http://localhost:8090/api/customers/     |
+|Delete a specific customer   |DELETE|http://localhost:8090/api/customers/:id  |
+|List sales                   |GET   |http://localhost:8090/api/sales/         |
+|Create a sale                |POST  |http://localhost:8090/api/sales/         |
+|Delete a sale                |DELETE|http://localhost:8090/api/sales/:id      |
+|List available cars          |GET   |http://localhost:8090/api/cars/          |
+|Update available car         |PUT   |http://localhost:8090/api/cars/:id       |
 
 ### **List Salespeople:**
 

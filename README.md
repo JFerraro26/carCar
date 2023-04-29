@@ -20,7 +20,7 @@
 6. Build the images on Docker
 	> `docker-compose build`
 7. Run the container from the images you just created
-	> `docker-compose up` <br><small>At this point you should see all 7 container running on Docker Desktop</small>
+	> `docker-compose up` <br><small>(at this point you should see all 7 container running on Docker Desktop)</small>
 8. Open a browser of choice.  Google Chrome is *recommended*.
 9. Head over to http://localhost:3000/ in your browser to start browsing through the website!
 	- This URL will take you to the homepage of our project, CarCar!

@@ -12,6 +12,7 @@ class AutomobileVoEncoder(ModelEncoder):
     properties = [
         "id",
         "vin",
+        "import_href",
     ]
     def get_extra_data(self, o):
         return {"sold": o.sold}
@@ -201,10 +202,10 @@ def available_car_list(request):
 
 
 @require_http_methods("PUT")
-def available_cars_update(request, id):
+def available_cars_update(request, vin):
     data = json.loads(request.body)
-    AutomobileVO.objects.filter(id=id).update(**data)
-    car = AutomobileVO.objects.get(id=id)
+    AutomobileVO.objects.filter(vin=vin).update(**data)
+    car = AutomobileVO.objects.get(vin=vin)
     return JsonResponse(
         car,
         encoder=AutomobileVoEncoder,

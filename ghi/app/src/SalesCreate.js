@@ -21,8 +21,8 @@ function SalesFormCreate() {
             const newSale = await response.json();
             const carData = {};
             carData.sold = true;
-            const carId = newSale["automobile"].id;
-            const carUrl = `http://localhost:8090/api/cars/${carId}/`
+            const carVin = newSale["automobile"].vin;
+            const carUrl = `http://localhost:8090/api/cars/${carVin}/`
             const carFetchConfig = {
                 method: "put",
                 body: JSON.stringify(carData),
@@ -30,14 +30,40 @@ function SalesFormCreate() {
                     'Content-Type': 'application/json',
                 },
             }
+            const automobileVIN =newSale["automobile"].vin;
+            const automobileUrl = `http://localhost:8100/api/automobiles/${automobileVIN}/`
+            const automobileFetchConfig = {
+                method: "put",
+                body: JSON.stringify(carData),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            }
+            const automobileResponse = await fetch(automobileUrl, automobileFetchConfig);
             const carResponse = await fetch(carUrl, carFetchConfig);
-            if (carResponse.ok) {
-                const updateCars = cars.filter(object => object.id !== carId)
+            if (carResponse.ok && automobileResponse.ok) {
+                const updateCars = cars.filter(object => object.vin !== carVin)
                 setCars(updateCars)
                 setCar("");
                 setSalesperson("");
                 setCustomer("");
                 setPrice("");
+            }
+            else if (carResponse.ok) {
+                const updateCars = cars.filter(object => object.vin !== carVin)
+                setCars(updateCars)
+                setCar("");
+                setSalesperson("");
+                setCustomer("");
+                setPrice("");
+                console.error(automobileResponse)
+            }
+            else if (automobileResponse.ok) {
+                console.error(carResponse)
+            }
+            else {
+                console.error(carResponse)
+                console.error(automobileResponse)
             }
 
 

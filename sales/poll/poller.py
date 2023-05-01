@@ -14,17 +14,18 @@ django.setup()
 from sales_rest.models import AutomobileVO
 
 def get_auto():
-    response = requests.get("http://project-beta-inventory-api-1:8000/api/automobiles/")
+    response = requests.get("http://inventory-api:8000/api/automobiles/")
     content = json.loads(response.content)
     for auto in content["autos"]:
         current_cars = AutomobileVO.objects.all().values()
-        current_car_list = []
+        current_car_list_vin = []
         for car in current_cars:
-            current_car_list.append(car["vin"])
-        if auto["vin"] not in current_car_list:
+            current_car_list_vin.append(car["vin"])
+        if auto["vin"] not in current_car_list_vin:
             AutomobileVO.objects.create(
                 sold = auto["sold"],
                 vin = auto["vin"],
+                import_href = auto["href"],
             )
 
 def poll():

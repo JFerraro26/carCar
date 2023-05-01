@@ -21,5 +21,5 @@ urlpatterns = [
     path("sales/", sale_list_create),
     path("sales/<int:id>/", sale_delete_edit_view),
     path("cars/", available_car_list),
-    path("cars/<int:id>/", available_cars_update),
+    path("cars/<str:vin>/", available_cars_update),
 ]

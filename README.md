@@ -14,7 +14,7 @@
 3. Fork and Clone Project-Beta from Git
 	> `git clone paste_copied_HTTPS_URL_here`
 4. Change your working directory to the directory you just cloned
-	> `cd project_name`
+	> `cd car-car`
 5. Create the volume in Docker
 	> `docker volume create beta-data`
 6. Build the images on Docker

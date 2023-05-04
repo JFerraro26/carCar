@@ -56,14 +56,12 @@ class SaleEncoder(ModelEncoder):
 def salesperson_list_or_create(request):
     if request.method == "GET":
         salespeople = Salesperson.objects.all()
-        if salespeople:
-            return JsonResponse(
-                {"salespeople": salespeople},
-                encoder= SalespersonEncoder,
-                status=200,
-            )
-        else:
-            return JsonResponse({"message":"No Salespeople Found"}, status=400)
+        return JsonResponse(
+            {"salespeople": salespeople},
+            encoder= SalespersonEncoder,
+            status=200,
+        )
+
     else:
         content = json.loads(request.body)
         salesperson = Salesperson.objects.create(**content)
@@ -78,7 +76,7 @@ def salesperson_list_or_create(request):
             return JsonResponse({"message":"Could Not Create Salesperson"}, status=400)
 
 
-# Joe: may add more functionality as a stretch goal
+
 @require_http_methods(["DELETE"])
 def salesperson_delete_edit_view(request, id):
     if request.method == "DELETE":
@@ -94,14 +92,11 @@ def salesperson_delete_edit_view(request, id):
 def customer_list_or_create(request):
     if request.method == "GET":
         customers = Customer.objects.all()
-        if customers:
-            return JsonResponse(
-                {"customers": customers},
-                encoder=CustomerEncoder,
-                status=200,
-            )
-        else:
-            return JsonResponse({"message":"No Customers Found"}, status=400)
+        return JsonResponse(
+            {"customers": customers},
+            encoder=CustomerEncoder,
+            status=200,
+        )
     else:
         content = json.loads(request.body)
         customer = Customer.objects.create(**content)
@@ -116,7 +111,7 @@ def customer_list_or_create(request):
             return JsonResponse({"message":"Could Not Create Customer"}, status=400)
 
 
-# Joe: may add more as a stretch goal
+
 @require_http_methods(["DELETE"])
 def customer_edit_view_delete(request, id):
     if request.method == "DELETE":
@@ -132,14 +127,11 @@ def customer_edit_view_delete(request, id):
 def sale_list_create (request):
     if request.method == "GET":
         sales = Sale.objects.all()
-        if sales:
-            return JsonResponse(
-                {"sales": sales},
-                encoder= SaleEncoder,
-                status=200,
-            )
-        else:
-            return JsonResponse({"message":"No Sales Found"}, status=400)
+        return JsonResponse(
+            {"sales": sales},
+            encoder= SaleEncoder,
+            status=200,
+        )
     else:
         content = json.loads(request.body)
         try:
@@ -177,7 +169,7 @@ def sale_list_create (request):
             return JsonResponse({"message":"Could Not Create Sale"}, status=400)
 
 
-# Joe: may add more as a stretch goal
+
 @require_http_methods(["DELETE"])
 def sale_delete_edit_view(request, id):
     if request.method == "DELETE":
@@ -192,13 +184,10 @@ def sale_delete_edit_view(request, id):
 @require_http_methods("GET")
 def available_car_list(request):
     cars = AutomobileVO.objects.filter(sold=False)
-    if cars:
-        return JsonResponse(
-            {"cars": cars},
-            encoder=AutomobileVoEncoder,
+    return JsonResponse(
+        {"cars": cars},
+        encoder=AutomobileVoEncoder,
         )
-    else:
-        return JsonResponse({"message":"No Available Cars Found"}, status=400)
 
 
 @require_http_methods("PUT")
